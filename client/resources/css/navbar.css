@@ -1,0 +1,196 @@
+﻿    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+#loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../resources/images/loading.gif');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 150px;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+    height: 60px;
+    border-bottom: 1px solid white;
+}
+
+.topnav a {
+    color: white;
+}
+
+        .topnav .navbutton {
+            float: left;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            margin-top: 8px;
+        }
+
+            .topnav .navbutton:hover {
+                /* background-color: #ddd;*/
+                color: #23DEFF;
+            }
+
+        .topnav a {
+            /*font-family: "Arial Narrow", Arial, sans-serif;*/
+                text-decoration: none;
+            }
+
+            .topnav a:hover {
+                /*font-family: "Arial Narrow", Arial, sans-serif;*/
+            }
+
+        .topnav .indent a {
+            margin-left: 30px;
+            /*font-family: "Arial Narrow", Arial, sans-serif;*/
+            text-decoration: none;
+        }
+
+        .topnav .navbuttonRight {
+            float: right;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            margin-top: 8px;
+        }
+
+            .topnav .navbuttonRight:hover {
+                color: #23DEFF;
+            }
+
+
+.modal-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    z-index: 999998;
+}
+
+.modal-inner {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    width: 60%;
+    background-color: white;
+    border-radius: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 2px;
+    padding-bottom: 10px;
+    z-index: 999999;
+}
+
+     .btn-yes {
+        background: #50b948;
+        border-color: #33912c;
+        color: white;
+        min-width: 70px;
+    }
+        .btn-yes a {
+            color: #fafafa;
+        }
+        .btn-yes:hover {
+            background: #33912c;
+        }
+
+.btn-no {
+    background: #D9534F;
+    border-color: #FF0D25;
+    color: white;
+    min-width: 70px;
+}
+
+    .btn-no a {
+        color: #fafafa;
+    }
+
+    .btn-no:hover {
+        background: #FF0D25;
+    }
+
+
+path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+
+        .dropdown-content {
+            position: absolute;
+            right: 15px;
+            background-color: white;
+            color: black;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            margin-top: 60px;
+        }
+
+        .dropdown-content:hover {
+            color: #23DEFF;
+        }
+
+        .dropdown-content .content-black {
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+
+    #logout {
+        background-image: url('../images/logout.png');
+        background-repeat: no-repeat;
+        background-size: 20px 20px;
+        background-position: right;
+        background-position: 10px 12px;
+    }
+    #logout:hover {
+        background-image: url('../images/logoutColored.png');
+    } 
+    #mineNavButton {
+        background-image: url('../images/activeMine.gif');
+        background-repeat: no-repeat;
+        background-size: 40px 40px;
+        background-position: 0px -1px;
+    }
+    #treeNavButton {
+        background-image: url('../images/tree.png');
+        background-repeat: no-repeat;
+        background-size: 30px 30px;
+        background-position: 10px 7px;
+    }
+
+    #helpNavButton {
+        background-image: url('../images/help.png');
+        background-repeat: no-repeat;
+        background-size: 30px 30px;
+        background-position: 10px 5px;
+    }
+#loginNavButton {
+    background-image: url('../images/borderRadius.png'), url('../images/fb.png');
+    background-repeat: no-repeat;
+}

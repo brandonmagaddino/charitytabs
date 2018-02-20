@@ -1,0 +1,548 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./resources/css/navbar.css">
+</head>
+
+<body>
+    <div id="loading" style="position: absolute; top: 0; left: 0; background-image: url('./resources/images/loading.gif'); background-repeat: no-repeat; background-attachment: fixed; background-position: center; ">
+    </div>
+    <!-- The Modal -->
+    <div class="modal-container" style="display: none;">
+        <!-- Modal content -->
+        <div class="modal-inner">
+            <h1 align="center">Can we mine in your browser?</h1>
+            <h4 align="center">(To create crypto for charity)</h4>
+            <hr />
+            <div style="margin-left: 15px;">
+                <h4>&nbsp;<span class="glyphicon glyphicon-flash"></span>&nbsp;It could drain slightly more electricity than normal.</h4>
+                <h4>&nbsp;<span class="glyphicon glyphicon-sort-by-attributes-alt"></span>&nbsp;On very slow machines, it could slow down your browser performance.</h4>
+                <h4>&nbsp;<strong><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;It will never damage your machine.</strong></h4>
+                <h4>&nbsp;<strong><span class="glyphicon glyphicon-heart-empty"></span>&nbsp;Your CPU cycles will go to a good home!</strong></h4>
+            </div>
+            <br />
+            <center>
+                <button type="button" id="modalButtonYes" class="btn btn-yes" style="margin-right: 6px;">Yes, I want to passively generate money for charity</button>
+                <button type="button" id="modalButtonNo" class="btn btn-no" style="margin-right: 6px;">How does this work?</button>
+            </center>
+        </div>
+    </div>
+
+
+    <div class="dropdown-content" id="logout" style="display: none;">
+        <div class="content-black">Logout</div>
+    </div>
+    <div class="topnav" style="visibility: hidden">
+        <div class="navbutton indent" id="mineNavButton" style="margin-left: 30px;" href=""><a>Mine</a></div>
+        <div class="navbutton indent" id="treeNavButton" href=""><a>Tree</a></div>
+        <div class="navbutton indent" id="helpNavButton" href=""><a>How does this work?</a></div>
+        <div class="navbuttonRight indent" id="loginNavButton"><a id="loginText">Login</a></div>
+    </div>
+    <div id="root" style="visibility: hidden">
+    </div>
+
+    <div id="mining_presenter" style="display: none;">
+        <div class="container">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-md-6">
+                        <center><h1 style="font-size: 40px;"><strong>Mining Stats</strong></h1></center>
+                        <hr style="border-color: black; background-color: black; color: black;" />
+                        <h3><strong>Mining Status:</strong> <span style="color: green;">Active</span></h3>
+                        <h3><strong>Time for Charity:</strong> <span>32h 5m 12s</span></h3>
+                        <h3><strong>Time for Long Island Havest:</strong> <span>32h 5m 12s</span></h3>
+                        <h3><strong>Block Time:</strong> <span>200h 4m 14s</span></h3>
+                        <h3><strong>Money Generated:</strong> <span>300$</span></h3>
+                    </div>
+                    <div class="col-md-6">
+                        <svg width="500" height="350"></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="tree_presenter" style="display: none;">
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="display-3">Tree Page!</h1>
+                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                <hr class="my-4">
+                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="help_presenter" style="display: none;">
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="display-3">Help Page!</h1>
+                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                <hr class="my-4">
+                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./resources/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+    <script>
+        window.launchTime = new Date();
+        window.restAPI = "";
+        window.isMining = false;
+
+        window.userdata = {
+            userid: "",
+            firstname: "",
+            lastname: "",
+            picture: "",
+            charity: {
+                charityid: "DCjL37j8YfFOcXxcAIcSrWulNm30Dw97",
+                charityTime: 0
+            },
+            shareURL: "420",
+            totalTime: 0,
+            hasPermission: false,
+            askedPermission: false
+        };
+       
+        loadUserCookieData();
+
+        function isLoggedIn() {
+            return (window.userdata.userid != "");
+        }
+
+        function saveUserCookieData() {
+            var userDataString = JSON.stringify(window.userdata);
+
+            setCookie("CharityMiner", userDataString, 30);
+        }
+
+        function loadUserCookieData() {
+            var userDataStr = getCookie("CharityMiner");
+
+            if (userDataStr != "") {
+                var userDataObj = JSON.parse(userDataStr);
+                window.userdata = userDataObj;
+            }
+
+            setUserShareURL();
+        }
+
+        function dropUserCookieData() {
+            setCookie("CharityMiner", "", 0);
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function setUserShareURL() {
+            window.history.pushState("", "", '/index.html?share=' + window.userdata.shareURL);
+        }
+
+        function msToTime(duration) {
+            let time = new Date(duration);
+            let hours = time.getUTCHours();
+            let minutes = time.getUTCMinutes();
+            let seconds = time.getUTCSeconds();
+            return hours + ":" + minutes + ":" + seconds;
+        }
+
+        
+    </script>
+
+    <script>
+        // Static readonly variables
+        var MINING_PAGE = "mining";
+        var TREE_PAGE = "tree";
+        var HELP_PAGE = "help";
+        var page = "";
+
+
+        function urlParam(name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
+        }
+        console.warn("Found:" + urlParam("share"));
+
+
+        // Setup hover
+        init();
+
+        function init() {
+            page = MINING_PAGE;
+            $("#root").html($("#mining_presenter").html());
+            refreshPageUI();
+
+            // Switch from loading screen to actual visible content
+            finishedLoading();
+        }
+
+
+        // Mining Tab
+        $("#mineNavButton")
+            .mouseover(function () {
+                refreshPageUI();
+            })
+            .mouseout(function () {
+                refreshPageUI();
+            }).click(function () {
+                MiningTabClicked();
+            });
+
+        function refreshMiningTabUI() {
+            var miningTab = $("#mineNavButton");
+            if (miningTab.is(":hover") || page == "mining") {
+                miningTab.children().css("color", "#23DEFF");
+                miningTab.css("border-bottom", "1px solid #23DEFF");
+
+                if (window.isMining == true) {
+                    miningTab.css("background-image", "url('./resources/images/mineActiveColored.gif')");
+                } else {
+                    miningTab.css("background-image", "url('./resources/images/minePassiveColored.png')");
+                }
+            }
+            else {
+                miningTab.children().css("color", "white");
+
+                if (window.isMining == true) {
+                    miningTab.css("background-image", "url('./resources/images/mineActive.gif')");
+                } else {
+                    miningTab.css("background-image", "url('./resources/images/minePassive.png')");
+                }
+            }
+        }
+        function MiningTabClicked() {
+            $("#root").html($("#mining_presenter").html());
+            page = MINING_PAGE;
+            refreshPageUI();
+        }
+
+        // Tree Tab
+        $("#treeNavButton")
+            .mouseover(function () {
+                refreshPageUI();
+            })
+            .mouseout(function () {
+                refreshPageUI();
+            }).click(function () {
+                TreeTabClicked();
+            });
+        function refreshTreeTabUI() {
+            var treeTab = $("#treeNavButton");
+            
+            if (treeTab.is(":hover") || page == "tree") {
+                treeTab.children().css("color", "#23DEFF");
+                treeTab.css("background-image", "url('./resources/images/treeColored.png')");
+                treeTab.css("border-bottom", "1px solid #23DEFF");
+            } else {
+                treeTab.children().css("color", "white");
+                treeTab.css("background-image", "url('./resources/images/tree.png')");
+            }
+        }
+        function TreeTabClicked() {
+            $("#root").html($("#tree_presenter").html());
+            page = TREE_PAGE;
+            refreshPageUI();
+        }
+
+        // Help Tab
+        $("#helpNavButton")
+            .mouseover(function () {
+                refreshPageUI();
+            })
+            .mouseout(function () {
+                refreshPageUI();
+            }).click(function () {
+                HelpTabClicked();
+            });
+        function refreshHelpTabUI() {
+            var helpTab = $("#helpNavButton");
+
+            if (helpTab.is(":hover") || page == "help") {
+                    helpTab.children().css("color", "#23DEFF");
+                    helpTab.css("background-image", "url('./resources/images/helpColoredActive.gif')");
+                    helpTab.css("border-bottom", "1px solid #23DEFF");
+                } else {
+                    helpTab.children().css("color", "white");
+                    helpTab.css("background-image", "url('./resources/images/help.png')");
+                }
+        }
+        function HelpTabClicked() {
+            $("#root").html($("#help_presenter").html());
+            page = HELP_PAGE;
+            refreshPageUI();
+        }
+
+        // Login Tab
+        $("#loginNavButton")
+            .mouseover(function () {
+                refreshPageUI();
+            })
+            .mouseout(function () {
+                refreshPageUI();
+            }).click(function () {
+                LoginTabClicked();
+            });
+        $(".dropdown-content")
+            .mouseover(function () {
+                refreshPageUI();
+            })
+            .mouseout(function () {
+                refreshPageUI();
+            }).click(function () {
+                console.log("User already logged in");
+                attemptFacebookLogout();
+            });
+
+        function refreshLoginTabUI() {
+            var loginTab = $("#loginNavButton");
+            var loginText = $("#loginText");
+            var loggedinDropDown = $(".dropdown-content");
+
+
+            if (isLoggedIn()) {
+                loginText.html("Logged in as " + window.userdata.firstname);
+                loginTab.css("background-image", "url('" + window.userdata.picture + "')");
+                loginTab.css("background-size", "34px 34px");
+                loginTab.css("background-position", "5px 7px");
+
+
+                if (loginTab.is(":hover") || loggedinDropDown.is(":hover")) {
+                    loggedinDropDown.show();
+                } else {
+                    loggedinDropDown.hide();
+                }
+            } else {
+                loginText.html("Login");
+                loginTab.css("background-size", "18px 18px");
+                loginTab.css("background-position", "22px 15px");
+                loggedinDropDown.hide();
+
+                if (loginTab.is(":hover") || loggedinDropDown.is(":hover")) {
+                    loginTab.css("background-image", "url('./resources/images/fbColored.png')");
+                } else {
+                    loginTab.css("background-image", "url('./resources/images/fb.png')");
+                }
+            }
+            if (loginTab.is(":hover") || loggedinDropDown.is(":hover")) {
+                loginTab.children().css("color", "#23DEFF");
+            } else {
+                loginTab.children().css("color", "white");
+            }
+        }
+        function LoginTabClicked() {
+            attemptFacebookLogin();
+        }
+
+        function refreshPageUI() {
+            refreshMiningTabUI();
+            refreshTreeTabUI();
+            refreshHelpTabUI();
+            refreshLoginTabUI();
+        }
+
+        function finishedLoading() {
+            $(".topnav").css("visibility", "visible");
+            $("#root").css("visibility", "visible");
+            $("#loading").remove();
+        }
+        
+    </script>
+
+
+    <script>
+        // Handle Facebook login
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '137465276940967',
+                cookie: true,
+                xfbml: true,
+                version: 'v2.11'
+            });
+
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function attemptFacebookLogout() {
+            dropUserCookieData();
+            window.userdata.userid = "";
+            refreshPageUI();
+        }
+
+        function attemptFacebookLogin() {
+            if (window.userdata.userid != "") {
+                return;
+            }
+
+            FB.login(function (response) {
+                if (response.authResponse) {
+                    console.log('Welcome!  Fetching your information.... ');
+                    FB.api('/me/?fields=email,name,first_name,last_name,picture,friends', function (response) {
+                        window.userdata.userid = response.id;
+                        window.userdata.firstname = response.first_name;
+                        window.userdata.lastname = response.last_name;
+                        window.userdata.picture = response.picture.data.url;
+                        console.log(response);
+
+                        saveUserCookieData();
+                        refreshPageUI();
+                    });
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            }, { scope: 'user_friends' });
+        }
+
+    </script>
+
+
+    <script>
+        // Modal controller
+        $("#modalButtonYes").click(function () {
+            $(".modal-container").hide();
+            window.userdata.hasPermission = true
+            window.userdata.askedPermission = true;
+            window.isMining = true;
+            saveUserCookieData();
+            refreshPageUI();
+        });
+        $("#modalButtonNo").click(function () {
+            $(".modal-container").hide();
+            window.userdata.hasPermission = false;
+            window.userdata.askedPermission = true;
+            window.isMining = false;
+            saveUserCookieData();
+            refreshPageUI();
+        });
+
+        shouldShowModal();
+        function shouldShowModal() {
+            if (!window.userdata.askedPermission) {
+                $(".modal-container").show();
+            }
+        }
+    </script>
+
+
+    <script>
+        var data = [];
+        var tick = 0;
+
+        for (var i = 0; i < 20; i++) {
+            data.push({ time: tick++, hps: 0 });
+        }
+        createGraph(data);
+
+        // MOCK DATA CREATOR
+        setInterval(function () {
+            data.push({ time: tick++, hps: 13 + (Math.random() * 2) });
+            
+            if (data.length > 20)
+                data = data.slice(1).slice(-20);
+        }, 250);
+
+
+        // Update Graph
+        setInterval(function () {
+            createGraph(data);
+
+            console.warn("Date: " + msToTime((new Date()) - window.launchTime));
+        }, 500);
+
+        function createGraph(data) {
+            console.warn("createGraph active graph");
+            d3.selectAll("svg > *").remove();
+
+            var svg = d3.select("svg"),
+                margin = { top: 20, right: 20, bottom: 30, left: 50 },
+                width = +svg.attr("width") - margin.left - margin.right,
+                height = +svg.attr("height") - margin.top - margin.bottom,
+                g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            var x = d3.scaleLinear()
+                .rangeRound([0, width]);
+
+            var y = d3.scaleLinear()
+                .rangeRound([height, 0]);
+
+            var line = d3.line()
+                .x(function (d) { return x(d.time); })
+                .y(function (d) { return y(d.hps); });
+
+
+            x.domain(d3.extent(data, function (d) { return d.time; }));
+            y.domain([0, 30]);
+
+            g.append("text")
+                .attr("x", width/9)
+                .attr("y", height/10)
+                .text("Hashes Per Second")
+                .style("font-size", "40px")
+                .style("font-weight", "bold")
+                .style("font-family", "Arial")
+                .style("color", "#333333");
+
+            g.append("g")
+                .call(d3.axisLeft(y))
+                .append("text")
+                .attr("fill", "#000")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", "0.71em")
+                .attr("text-anchor", "end");
+
+            g.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", "steelblue")
+                .attr("stroke-linejoin", "round")
+                .attr("stroke-linecap", "round")
+                .attr("stroke-width", 1.5)
+                .attr("d", line);
+        }
+    </script>
+
+</body >
+</html >
