@@ -21,8 +21,9 @@ namespace restAPI.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public String Post([FromBody]string value)
         {
+            return "Lets go!";
         }
         
         // PUT api/values/5

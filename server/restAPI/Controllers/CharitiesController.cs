@@ -18,5 +18,11 @@ namespace restAPI.Controllers
         {
             return DataManager.instance.CharityList;
         }
+
+        [HttpGet("{id}")]
+        public CharityDTO Get(String id)
+        {
+            return DataManager.instance.CharityList.Where(arg => arg.CharityID.Trim().ToLower().Equals(id.Trim().ToLower())).FirstOrDefault();
+        }
     }
 }

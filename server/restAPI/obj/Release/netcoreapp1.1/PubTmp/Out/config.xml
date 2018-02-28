@@ -1,0 +1,4 @@
+﻿<configuration>
+  <config id="something" value="32" />
+  <config id="somethingElse" value="True" />
+</configuration>

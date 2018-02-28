@@ -8,3 +8,14 @@ C:\Users\brandon\Desktop\Charity Tabs\server\restAPI\obj\Debug\netcoreapp1.1\res
 C:\Users\brandon\Desktop\Charity Tabs\server\restAPI\bin\Debug\netcoreapp1.1\restAPI.pdb
 C:\Users\brandon\Desktop\Charity Tabs\server\restAPI\obj\Debug\netcoreapp1.1\restAPI.dll
 C:\Users\brandon\Desktop\Charity Tabs\server\restAPI\obj\Debug\netcoreapp1.1\restAPI.pdb
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\bin\Debug\netcoreapp1.1\config.xml
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\bin\Debug\netcoreapp1.1\restAPI.deps.json
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\bin\Debug\netcoreapp1.1\restAPI.runtimeconfig.json
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\bin\Debug\netcoreapp1.1\restAPI.runtimeconfig.dev.json
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\bin\Debug\netcoreapp1.1\restAPI.dll
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\bin\Debug\netcoreapp1.1\restAPI.pdb
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\obj\Debug\netcoreapp1.1\restAPI.csprojResolveAssemblyReference.cache
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\obj\Debug\netcoreapp1.1\restAPI.csproj.CoreCompileInputs.cache
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\obj\Debug\netcoreapp1.1\restAPI.AssemblyInfo.cs
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\obj\Debug\netcoreapp1.1\restAPI.dll
+C:\Users\brandon\Desktop\charitytabs\trunk\server\restAPI\obj\Debug\netcoreapp1.1\restAPI.pdb

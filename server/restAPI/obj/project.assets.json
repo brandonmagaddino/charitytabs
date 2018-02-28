@@ -10799,11 +10799,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\brandon\\Desktop\\Charity Tabs\\server\\restAPI\\restAPI.csproj",
+      "projectUniqueName": "C:\\Users\\brandon\\Desktop\\charitytabs\\trunk\\server\\restAPI\\restAPI.csproj",
       "projectName": "restAPI",
-      "projectPath": "C:\\Users\\brandon\\Desktop\\Charity Tabs\\server\\restAPI\\restAPI.csproj",
+      "projectPath": "C:\\Users\\brandon\\Desktop\\charitytabs\\trunk\\server\\restAPI\\restAPI.csproj",
       "packagesPath": "C:\\Users\\brandon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\brandon\\Desktop\\Charity Tabs\\server\\restAPI\\obj\\",
+      "outputPath": "C:\\Users\\brandon\\Desktop\\charitytabs\\trunk\\server\\restAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\brandon\\AppData\\Roaming\\NuGet\\NuGet.Config",

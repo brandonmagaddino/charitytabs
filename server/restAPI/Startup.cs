@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using restAPI.Managers;
 
 namespace restAPI
 {
@@ -20,6 +21,10 @@ namespace restAPI
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+
+            // Load in from the config file
+            ConfigManager.load();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -29,6 +34,19 @@ namespace restAPI
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,7 +55,9 @@ namespace restAPI
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseCors("AllowAll");
             app.UseMvc();
+            
         }
     }
 }
