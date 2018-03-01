@@ -1,0 +1,12 @@
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\bin\Debug\netcoreapp2.0\AppConfig.xml
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\bin\Debug\netcoreapp2.0\CharityTabsServer.deps.json
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\bin\Debug\netcoreapp2.0\CharityTabsServer.runtimeconfig.json
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\bin\Debug\netcoreapp2.0\CharityTabsServer.runtimeconfig.dev.json
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\bin\Debug\netcoreapp2.0\CharityTabsServer.dll
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\bin\Debug\netcoreapp2.0\CharityTabsServer.pdb
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\obj\Debug\netcoreapp2.0\CharityTabsServer.csprojResolveAssemblyReference.cache
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\obj\Debug\netcoreapp2.0\CharityTabsServer.csproj.CoreCompileInputs.cache
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\obj\Debug\netcoreapp2.0\CharityTabsServer.AssemblyInfoInputs.cache
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\obj\Debug\netcoreapp2.0\CharityTabsServer.AssemblyInfo.cs
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\obj\Debug\netcoreapp2.0\CharityTabsServer.dll
+C:\Users\brandon\Desktop\charitytabs\trunk\serverV2\CharityTabsServer\obj\Debug\netcoreapp2.0\CharityTabsServer.pdb
